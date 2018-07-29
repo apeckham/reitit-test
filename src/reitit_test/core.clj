@@ -18,21 +18,18 @@
       [["/"
         {:get
          {:handler (fn [req]
-                     {:status  200
-                      :headers {"Content-Type" "text/html"}
-                      :body    "got stuff"})}}]
+                     {:status 200
+                      :body   {:x "got stuff"}})}}]
        ["/post"
         {:post
          {:handler (fn [req]
                      {:status  200
-                      :headers {"Content-Type" "text/html"}
                       :body    (:body-params req)})}}]
        ["/api"
         {:get
          {:handler (fn [req]
                      (pprint req)
                      {:status  200
-                      :headers {"Content-Type" "text/html"}
                       :body    {:y "Hello World2"}})}}]]
       {:data
        {:middleware [wrap-params
