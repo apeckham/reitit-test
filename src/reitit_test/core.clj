@@ -20,7 +20,13 @@
          {:handler (fn [req]
                      {:status  200
                       :headers {"Content-Type" "text/html"}
-                      :body    {:x "hi"}})}}]
+                      :body    "got stuff"})}}]
+       ["/post"
+        {:post
+         {:handler (fn [req]
+                     {:status  200
+                      :headers {"Content-Type" "text/html"}
+                      :body    (:body-params req)})}}]
        ["/api"
         {:get
          {:handler (fn [req]
