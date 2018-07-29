@@ -2,7 +2,8 @@
   (:require [ring.adapter.jetty :refer [run-jetty]]
             [clojure.pprint :refer [pprint]]
             [reitit.ring :as ring]
-            reitit.coercion.spec
+            reitit.coercion.schema
+            [schema.core :as s]
             [ring.middleware.params :refer [wrap-params]]
             [muuntaja.core :as muuntaja]
             [muuntaja.middleware :refer [wrap-format]]
@@ -17,8 +18,10 @@
     (ring/router
       [["/"
         {:get
-         {:handler (fn [req]
-                     {:body {:x "got stuff"}})}}]
+         {:coercion   reitit.coercion.schema/coercion
+          :parameters {:query {:x s/Int}}
+          :handler    (fn [req]
+                        {:body {:x (:parameters req)}})}}]
        ["/post"
         {:post
          {:handler (fn [req]
@@ -30,7 +33,10 @@
                      {:body {:y "Hello World2"}})}}]]
       {:data
        {:middleware [wrap-params
-                     #(wrap-format % m)]}})
+                     #(wrap-format % m)
+                     rrc/coerce-exceptions-middleware
+                     rrc/coerce-request-middleware
+                     rrc/coerce-response-middleware]}})
     (ring/create-default-handler)))
 
 (defn -main
