@@ -18,19 +18,16 @@
       [["/"
         {:get
          {:handler (fn [req]
-                     {:status 200
-                      :body   {:x "got stuff"}})}}]
+                     {:body {:x "got stuff"}})}}]
        ["/post"
         {:post
          {:handler (fn [req]
-                     {:status  200
-                      :body    (:body-params req)})}}]
+                     {:body (:body-params req)})}}]
        ["/api"
         {:get
          {:handler (fn [req]
                      (pprint req)
-                     {:status  200
-                      :body    {:y "Hello World2"}})}}]]
+                     {:body {:y "Hello World2"}})}}]]
       {:data
        {:middleware [wrap-params
                      #(wrap-format % m)]}})
