@@ -2,6 +2,7 @@
   (:require [ring.adapter.jetty :refer [run-jetty]]
             [clojure.pprint :refer [pprint]]
             [reitit.ring :as ring]
+            [ring.logger :refer [wrap-log-response]]
             reitit.coercion.schema
             [schema.core :as s]
             [ring.middleware.params :refer [wrap-params]]
@@ -34,6 +35,7 @@
       {:data
        {:middleware [wrap-params
                      #(wrap-format % m)
+                     #(wrap-log-response % {:request-keys [:request-method :uri :query-params]})
                      rrc/coerce-exceptions-middleware
                      rrc/coerce-request-middleware
                      rrc/coerce-response-middleware]}})

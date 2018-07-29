@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [metosin/reitit "0.2.0-SNAPSHOT"]
+                 [ring-logger "1.0.1"]
                  [metosin/muuntaja "0.6.0-alpha1"]
                  [ring/ring "1.6.3"]
                  [ring/ring-jetty-adapter "1.6.3"]]
